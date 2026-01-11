@@ -5,6 +5,7 @@ public class Car {
     private String model;
     private float power;
     private int year;
+    public static Car[] cars;
 
     public Car(String model, float power, int year) {
         this.model = model;

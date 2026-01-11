@@ -43,6 +43,12 @@ public class DisplayMenu {
         System.out.print("Выберите действие: ");
     }
 
+    public static int SetArraySize() {
+        System.out.print("Введите размер массива: ");
+        Car.cars = new Car[scanner.nextInt()];
+        return scanner.nextInt();
+    }
+
     public static void InputArrayChoice(String input) {
         switch (input) {
             case "1":
