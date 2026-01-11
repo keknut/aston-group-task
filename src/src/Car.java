@@ -25,9 +25,16 @@ public class Car {
     // end "getters, setters"
 
     private Car(Builder builder) {
-        this.model = model;
-        this.power = power;
-        this.year = year;
+        this.model = builder.model;
+        this.power = builder.power;
+        this.year = builder.year;
+    }
+
+    @Override
+    public String toString() {
+        return "Модель: " + this.model +
+                "; мощность: " + this.power +
+                "; год: " + this.year;
     }
 
     public static class Builder {
@@ -57,8 +64,8 @@ public class Car {
         @Override
         public String toString() {
             return "Модель: " + this.model +
-                    ", мощность: " + this.power +
-                    ", год: " + this.year;
+                    "; мощность: " + this.power +
+                    "; год: " + this.year;
         }
     }
 }

@@ -54,16 +54,24 @@ public class DisplayMenu {
             current = new Car.Builder();
 
             System.out.print("\nВведите модель автомобиля: ");
-            current.model(scanner.nextLine().trim());
+            var model = scanner.next().trim();
 
             System.out.print("Введите мощность автомобиля: ");
-            current.power(scanner.nextFloat());
+            var power = scanner.nextFloat();
 
             System.out.print("Введите год автомобиля: ");
-            current.year(scanner.nextInt());
+            var year = scanner.nextInt();
 
-            System.out.println("Добавлен автомобиль: " + current);
+            current.model(model).power(power).year(year);
+
+            System.out.println("\nДобавлен автомобиль: " + current);
             Car.cars[i] = current.build();
+        }
+    }
+
+    public static void PrintArray() {
+        for(var car : Car.cars) {
+            System.out.println(car);
         }
     }
 
