@@ -43,10 +43,28 @@ public class DisplayMenu {
         System.out.print("Выберите действие: ");
     }
 
-    public static int SetArraySize() {
-        System.out.print("Введите размер массива: ");
+    public static void SetArraySize() {
+        System.out.print("\nВведите размер массива: ");
         Car.cars = new Car[scanner.nextInt()];
-        return scanner.nextInt();
+    }
+
+    public static void ManualInput() {
+        Car.Builder current;
+        for(var i = 0; i < Car.cars.length; i++) {
+            current = new Car.Builder();
+
+            System.out.print("\nВведите модель автомобиля: ");
+            current.model(scanner.nextLine().trim());
+
+            System.out.print("Введите мощность автомобиля: ");
+            current.power(scanner.nextFloat());
+
+            System.out.print("Введите год автомобиля: ");
+            current.year(scanner.nextInt());
+
+            System.out.println("Добавлен автомобиль: " + current);
+            Car.cars[i] = current.build();
+        }
     }
 
     public static void InputArrayChoice(String input) {
@@ -62,6 +80,7 @@ public class DisplayMenu {
             case "3":
                 //метод заполнения массива вручную
                 System.out.println("//метод заполнения массива вручную");
+                ManualInput();
                 break;
             case "0":
                 break;
