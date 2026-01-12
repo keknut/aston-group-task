@@ -8,6 +8,7 @@ void main() {
         DisplayMenu.Main();
         switch (scanner.nextLine()) {
             case "1":
+                DisplayMenu.SetArraySize();
                 DisplayMenu.InputArray();
                 DisplayMenu.InputArrayChoice(scanner.nextLine());
                 break;

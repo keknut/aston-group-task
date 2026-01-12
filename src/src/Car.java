@@ -5,6 +5,7 @@ public class Car {
     private String model;
     private float power;
     private int year;
+    public static Car[] cars;
 
     public Car(String model, float power, int year) {
         this.model = model;
@@ -24,15 +25,22 @@ public class Car {
     // end "getters, setters"
 
     private Car(Builder builder) {
-        this.model = model;
-        this.power = power;
-        this.year = year;
+        this.model = builder.model;
+        this.power = builder.power;
+        this.year = builder.year;
+    }
+
+    @Override
+    public String toString() {
+        return "Модель: " + this.model +
+                "; мощность: " + this.power +
+                "; год: " + this.year;
     }
 
     public static class Builder {
-        private String model;
-        private float power;
-        private int year;
+        private String model = "undefined";
+        private float power = 0.0f;
+        private int year = 0;
 
         public Builder model(String model) {
             this.model = model;
@@ -51,6 +59,13 @@ public class Car {
 
         public Car build() {
             return new Car(this);
+        }
+
+        @Override
+        public String toString() {
+            return "Модель: " + this.model +
+                    "; мощность: " + this.power +
+                    "; год: " + this.year;
         }
     }
 }
