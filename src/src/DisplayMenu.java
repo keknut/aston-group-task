@@ -1,5 +1,6 @@
 package src;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class DisplayMenu {
@@ -64,9 +65,28 @@ public class DisplayMenu {
 
             current.model(model).power(power).year(year);
 
-            System.out.println("\nДобавлен автомобиль: " + current);
             Car.cars[i] = current.build();
+            System.out.println("\nДобавлен автомобиль: " + current);
         }
+    }
+
+    public static void RandomInput() {
+        Car.Builder current;
+        String[] models = { "Toyota", "Volkswagen", "Ford", "Honda", "Nissan", "Hyundai", "BMW", "Mercedes-Benz", "Audi", "Kia" };
+        for(var i = 0; i < Car.cars.length; i++) {
+            var random = new Random();
+            current = new Car.Builder();
+
+            String model = models[random.nextInt(Car.cars.length)];
+            var power = Math.round(random.nextFloat(50f, 100f) * 100f) / 100f;
+            int year = random.nextInt(1950, 2026);
+
+            current.model(model).power(power).year(year);
+
+            Car.cars[i] = current.build();
+            System.out.print("\nДобавлен автомобиль: " + current);
+        }
+        System.out.print('\n');
     }
 
     public static void PrintArray() {
@@ -84,6 +104,7 @@ public class DisplayMenu {
             case "2":
                 //метод заполнения массива рандомно
                 System.out.println("//метод заполнения массива рандомно");
+                RandomInput();
                 break;
             case "3":
                 //метод заполнения массива вручную
