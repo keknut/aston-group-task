@@ -9,7 +9,8 @@ public class DisplayMenu {
     public static void Main() {
         System.out.println("\nГЛАВНОЕ МЕНЮ");
         System.out.println("1. Выбрать вариант заполнения массива");
-        System.out.println("2. Cортировать массив по полю");
+        System.out.println("2. Сортировать массив по полю");
+        System.out.println("3. Вывести содержимое массива");
         System.out.println("0. Выход из программы \n");
 
         System.out.print("Выберите действие: ");
@@ -90,9 +91,12 @@ public class DisplayMenu {
     }
 
     public static void PrintArray() {
-        for(var car : Car.cars) {
-            System.out.println(car);
+        if (Car.cars == null) {
+            System.out.println("Массив еще не заполнен");
+            return;
         }
+        for(var car : Car.cars)
+            System.out.println(car);
     }
 
     public static void InputArrayChoice(String input) {
