@@ -1,5 +1,6 @@
 package src;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class DisplayMenu {
@@ -78,8 +79,17 @@ public class DisplayMenu {
     public static void InputArrayChoice(String input) {
         switch (input) {
             case "1":
-                //метод заполнения массива из файла
-                System.out.println("//метод заполнения массива из файла");
+                SetArraySize();
+                try {
+                    List<Car> list = FileReader.readCars("src/file.txt");
+                    for (int i = 0; i < Car.cars.length && i < list.size(); i++) {
+                        Car.cars[i] = list.get(i);
+                    }
+                    System.out.println("Готово! Массив заполнен из файла.");
+                } catch (Exception e) {
+                    System.out.println("Ошибка чтения файла: " + e.getMessage());
+                }
+                PrintArray();
                 break;
             case "2":
                 //метод заполнения массива рандомно

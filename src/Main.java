@@ -1,7 +1,7 @@
 import src.*;
 import comparators.*;
 
-void main() {
+void main() throws Exception {
     Scanner scanner = new Scanner(System.in);
     boolean running = true;
     while (running) {
@@ -25,4 +25,14 @@ void main() {
         }
     }
     scanner.close();
+
+    List<Car> cars = FileReader.readCars("file.txt");
+
+    for (Car car : cars) {
+        System.out.println(
+                car.getModel() + " " +
+                        car.getPower() + " " +
+                        car.getYear()
+        );
+    }
 }
