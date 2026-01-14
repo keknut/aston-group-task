@@ -1,40 +1,33 @@
 package src;
 
-public class Car {
-
-    private String model;
-    private float power;
-    private int year;
+public class Car extends AbstractVehicle {
     public static Car[] cars;
-
-    public Car(String model, float power, int year) {
-        this.model = model;
-        this.power = power;
-        this.year = year;
+    @Override
+    public String getType() {
+        return "Car";
     }
 
-    // begin "getters, setters"
-    public String getModel() { return this.model; }
-    public Car setModel(String model) { this.model = model; return this; }
-
-    public float getPower() { return this.power; }
-    public Car setPower(float power) { this.power = power; return this; }
-
-    public int getYear() { return this.year; }
-    public Car setYear(int year) { this.year = year; return this; }
+    // begin "setters", "getters" in abstract class
+    // Убрал сеттеры, т.к.
+//    public Car setModel(String model) {
+//        this.model = model;
+//        return this;
+//    }
+//
+//    public Car setPower(float power) {
+//        this.power = power;
+//        return this;
+//    }
+//
+//    public Car setYear(int year) {
+//        this.year = year;
+//        return this;
+//    }
     // end "getters, setters"
 
+    // Убрал
     private Car(Builder builder) {
-        this.model = builder.model;
-        this.power = builder.power;
-        this.year = builder.year;
-    }
-
-    @Override
-    public String toString() {
-        return "Модель: " + this.model +
-                "; мощность: " + this.power +
-                "; год: " + this.year;
+        super(builder.model, builder.power, builder.year);
     }
 
     public static class Builder {
@@ -58,14 +51,16 @@ public class Car {
         }
 
         public Car build() {
+            if (model == null || model.isBlank()) {
+                throw new IllegalStateException("Модель не задана");
+            }
+            if (power <= 0) {
+                throw new IllegalStateException("Мощность должна быть > 0");
+            }
+            if (year < 1886 || year > 2100) {
+                throw new IllegalStateException("Год некорректен");
+            }
             return new Car(this);
-        }
-
-        @Override
-        public String toString() {
-            return "Модель: " + this.model +
-                    "; мощность: " + this.power +
-                    "; год: " + this.year;
         }
     }
 }

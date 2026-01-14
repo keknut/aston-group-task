@@ -50,7 +50,7 @@ public class DisplayMenu {
 
     public static void ManualInput() {
         Car.Builder current;
-        for(var i = 0; i < Car.cars.length; i++) {
+        for (var i = 0; i < Car.cars.length; i++) {
             current = new Car.Builder();
 
             System.out.print("\nВведите модель автомобиля: ");
@@ -70,7 +70,7 @@ public class DisplayMenu {
     }
 
     public static void PrintArray() {
-        for(var car : Car.cars) {
+        for (var car : Car.cars) {
             System.out.println(car);
         }
     }
