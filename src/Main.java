@@ -16,6 +16,9 @@ void main() throws Exception {
                 DisplayMenu.SortArrayField();
                 DisplayMenu.SortArrayField(scanner.nextLine());
                 break;
+            case "3":
+                DisplayMenu.PrintArray();
+                break;
             case "0":
                 running = false;
                 System.out.println("Работа программы завершена");
