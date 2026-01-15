@@ -49,27 +49,91 @@ public class DisplayMenu {
 
     public static void SetArraySize() {
         System.out.print("\nВведите размер массива: ");
-        Car.cars = new Car[scanner.nextInt()];
+        int size = scanner.nextInt();
+        /*
+        Очистка буфера
+         */
+        scanner.nextLine();
+        Car.cars = new Car[size];
     }
 
     public static void ManualInput() {
         Car.Builder current;
+        /*
+        Очистка буфера после предыдущего ввода
+         */
+        scanner.nextLine();
+
         for (var i = 0; i < Car.cars.length; i++) {
             current = new Car.Builder();
 
             System.out.print("\nВведите модель автомобиля: ");
-            var model = scanner.next().trim();
+            /*
+            Исправил на Line чтобы можно было читать строку вместо слова
+             */
+            String model = scanner.nextLine().trim();
+            if (model.isEmpty()) {
+                System.out.println("Модель не может быть пустой. Попробуйте ещё раз.");
+                i--;
+                continue;
+            }
 
-            System.out.print("Введите мощность автомобиля: ");
-            var power = scanner.nextFloat();
+            float power = 0;
+            boolean validPower = false;
+            while (!validPower) {
+                System.out.print("Введите мощность автомобиля: ");
+                try {
+                    power = scanner.nextFloat();
+                    if (power <= 0) {
+                        System.out.println("Мощность должна быть положительным числом. Попробуйте снова.");
+                        continue;
+                    }
+                    validPower = true;
+                } catch (java.util.InputMismatchException e) {
+                    System.out.println("Ошибка: введите корректное число (например 90.5).");
+                    /*
+                    Очистка буфера
+                     */
+                    scanner.nextLine();
+                }
+            }
 
-            System.out.print("Введите год автомобиля: ");
-            var year = scanner.nextInt();
+            int year = 0;
+            boolean validYear = false;
+            while (!validYear) {
+                System.out.print("Введите год автомобиля: ");
+                try {
+                    year = scanner.nextInt();
+                    if (year < 1886 || year > 2100) {
+                        System.out.println("Год должен быть от 1886 до 2100. Попробуйте снова.");
+                        continue;
+                    }
+                    validYear = true;
+                } catch (java.util.InputMismatchException e) {
+                    System.out.println("Ошибка: введите корректный год (целое число).");
+                    scanner.nextLine();
+                }
+            }
+            /*
+            Очистка буфера
+             */
+            scanner.nextLine();
 
-            current.model(model).power(power).year(year);
+            /*
+            Сборка объекта
+             */
+            try {
+                current.model(model).power(power).year(year);
+                Car.cars[i] = current.build();
+                System.out.println("\nДобавлен автомобиль: " + Car.cars[i]);
+            } catch (IllegalStateException e) {
+                System.out.println("Ошибка при создании автомобиля: " + e.getMessage());
+                /*
+                Даём возможность пересоздать автомобиль
+                 */
+                i--;
+            }
 
-            Car.cars[i] = current.build();
-            System.out.println("\nДобавлен автомобиль: " + current.build());
         }
     }
 
@@ -93,11 +157,11 @@ public class DisplayMenu {
     }
 
     public static void PrintArray() {
+        if (Car.cars == null) {
+            System.out.println("Массив еще не заполнен");
+            return;
+        }
         for (var car : Car.cars) {
-            if (Car.cars == null) {
-                System.out.println("Массив еще не заполнен");
-                return;
-            }
 //            for (var car : Car.cars)
             System.out.println(car);
         }
@@ -139,8 +203,6 @@ public class DisplayMenu {
         switch (input) {
             case "1", "2", "3" -> {
                 SortArrayFieldDirection();
-                String direction = scanner.nextLine().trim();
-                SortArrayFieldDirection(direction, input);
             }
             case "0" -> {}
             default -> System.out.println("Неверный ввод! Пожалуйста, выберите пункт из меню.");
