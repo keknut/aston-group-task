@@ -1,5 +1,6 @@
 package src;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.List;
 import java.util.Scanner;
@@ -68,7 +69,7 @@ public class DisplayMenu {
             current.model(model).power(power).year(year);
 
             Car.cars[i] = current.build();
-            System.out.println("\nДобавлен автомобиль: " + current);
+            System.out.println("\nДобавлен автомобиль: " + current.build());
         }
     }
 
@@ -93,12 +94,13 @@ public class DisplayMenu {
 
     public static void PrintArray() {
         for (var car : Car.cars) {
-        if (Car.cars == null) {
-            System.out.println("Массив еще не заполнен");
-            return;
-        }
-        for(var car : Car.cars)
+            if (Car.cars == null) {
+                System.out.println("Массив еще не заполнен");
+                return;
+            }
+//            for (var car : Car.cars)
             System.out.println(car);
+        }
     }
 
     public static void InputArrayChoice(String input) {
@@ -135,57 +137,29 @@ public class DisplayMenu {
 
     public static void SortArrayField(String input) {
         switch (input) {
-            case "1":
-            case "2":
-            case "3":
+            case "1", "2", "3" -> {
                 SortArrayFieldDirection();
-                SortArrayFieldDirection(scanner.nextLine(), input);
-                break;
-            case "0":
-                break;
-            default:
-                System.out.println("Неверный ввод! Пожалуйста, выберите пункт из меню.");
+                String direction = scanner.nextLine().trim();
+                SortArrayFieldDirection(direction, input);
+            }
+            case "0" -> {}
+            default -> System.out.println("Неверный ввод! Пожалуйста, выберите пункт из меню.");
         }
     }
 
     public static void SortArrayFieldDirection(String input, String sortIput) {
-        switch (input) {
-            case "1":
-                switch (sortIput) {
-                    case "1":
-                        System.out.println("//метод сортировки по возрастанию и модели");
-                        //метод сортировки по возрастанию и модели
-                        break;
-                    case "2":
-                        System.out.println("//метод сортировки по возрастанию и по мощности");
-                        //метод сортировки по возрастанию и по мощности
-                        break;
-                    case "3":
-                        System.out.println("//метод сортировки по возрастанию и по году выпуска");
-                        //метод сортировки по возрастанию и по году выпуска
-                        break;
-                }
-                break;
-            case "2":
-                switch (sortIput) {
-                    case "1":
-                        System.out.println("//метод сортировки по убыванию и по модели");
-                        //метод сортировки по убыванию и по модели
-                        break;
-                    case "2":
-                        System.out.println("//метод сортировки по убыванию и по мощности");
-                        //метод сортировки по убыванию и по мощности
-                        break;
-                    case "3":
-                        System.out.println("//метод сортировки по убыванию и по году выпуска");
-                        //метод сортировки по убыванию и по году выпуска
-                        break;
-                }
-                break;
-            case "0":
-                break;
-            default:
-                System.out.println("Неверный ввод! Пожалуйста, выберите пункт из меню.");
+        try{
+            SortOption option = SortOption.fromInput(sortIput, input);
+            CarSorter carSorter = new CarSorter();
+            carSorter.setStrategy(option.getStrategy());
+
+            List<Car> current = new ArrayList<>(List.of(Car.cars));
+            current = carSorter.sort(current);
+            Car.cars = current.toArray(new Car[0]);
+
+            System.out.println("Отсортировано: " + option.getDescription());
+        } catch (IllegalArgumentException e) {
+            System.out.println("Ошибка: " + e.getMessage());
         }
     }
 }
