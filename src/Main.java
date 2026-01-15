@@ -1,5 +1,5 @@
 import src.*;
-import comparators.*;
+
 
 void main() throws Exception {
     Scanner scanner = new Scanner(System.in);

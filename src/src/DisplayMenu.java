@@ -211,18 +211,44 @@ public class DisplayMenu {
     }
 
     public static void SortArrayFieldDirection(String input, String sortIput) {
-        try{
+        try {
+            if (Car.cars == null) {
+                System.out.println("Сначала заполните массив (пункт 1).");
+                return;
+            }
+
             SortOption option = SortOption.fromInput(sortIput, input);
-            CarSorter carSorter = sortIput.equals("4") ? new EvenYearCarSorter() : new CarSorter();
+
+            CarSorter carSorter = new CarSorter();
             carSorter.setStrategy(option.getStrategy());
 
-            List<Car> current = new ArrayList<>(List.of(Car.cars));
+            // 1) Собираем список БЕЗ null
+            List<Car> current = new ArrayList<>();
+            for (Car car : Car.cars) {
+                if (car != null) current.add(car);
+            }
+
+            if (current.isEmpty()) {
+                System.out.println("В массиве нет машин для сортировки.");
+                return;
+            }
+
+            // 2) Сортируем
             current = carSorter.sort(current);
+
+            // 3) Возвращаем в массив (чтобы остальная программа работала)
             Car.cars = current.toArray(new Car[0]);
 
             System.out.println("Отсортировано: " + option.getDescription());
-        } catch (Exception e) {
+
+            // 4) ДОП.2: автоматически дописываем результат в файл
+            CarFileWriter.appendCars("src/file.txt", current);
+            System.out.println("Результат дописан в файл (append): src/file.txt");
+
+        } catch (IllegalArgumentException e) {
             System.out.println("Ошибка: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Ошибка записи в файл: " + e.getMessage());
         }
     }
 }
