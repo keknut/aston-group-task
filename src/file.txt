@@ -2,4 +2,13 @@ BMW M5;600.5;2020
 Audi A6;245.0;2018
 Toyota Camry;181.0;2016
 Mercedes;200.0;2014
-Lamborghini;457.0;2019
+Lamborghini;457.0;2019---- SORT RESULT ----
+Toyota;61.09;2009
+Toyota;62.12;2002
+Toyota;88.17;2012
+BMW;73.16;2018
+---- SORT RESULT ----
+Toyota;88.17;2012
+BMW;73.16;2018
+Toyota;62.12;2002
+Toyota;61.09;2009
