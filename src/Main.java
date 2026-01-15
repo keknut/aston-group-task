@@ -6,15 +6,29 @@ void main() throws Exception {
     boolean running = true;
     while (running) {
         DisplayMenu.Main();
-        switch (scanner.nextLine()) {
+        String choice = scanner.nextLine().trim();
+
+        switch (choice) {
             case "1":
-                DisplayMenu.SetArraySize();
                 DisplayMenu.InputArray();
-                DisplayMenu.InputArrayChoice(scanner.nextLine());
+                String inputChoice = scanner.nextLine().trim();
+                DisplayMenu.InputArrayChoice(inputChoice);
                 break;
             case "2":
                 DisplayMenu.SortArrayField();
-                DisplayMenu.SortArrayField(scanner.nextLine());
+                String fieldInput = scanner.nextLine().trim();
+
+                if (fieldInput.equals("0")) break;
+
+                switch (fieldInput) {
+                    case "1", "2", "3":
+                        DisplayMenu.SortArrayFieldDirection();
+                        String directionInput = scanner.nextLine().trim();
+                        DisplayMenu.SortArrayFieldDirection(directionInput, fieldInput);
+                        break;
+                    default:
+                        System.out.println("Неверный ввод! Пожалуйста, выберите пункт из меню.");
+                }
                 break;
             case "3":
                 DisplayMenu.PrintArray();
@@ -29,13 +43,18 @@ void main() throws Exception {
     }
     scanner.close();
 
-    List<Car> cars = FileReader.readCars("file.txt");
+    try {
+        List<Car> cars = FileReader.readCars("file.txt");
 
-    for (Car car : cars) {
-        System.out.println(
-                car.getModel() + " " +
-                        car.getPower() + " " +
-                        car.getYear()
-        );
+        for (Car car : cars) {
+            System.out.println(
+                    car.getModel() + " " +
+                            car.getPower() + " " +
+                            car.getYear()
+            );
+        }
+    } catch (Exception e) {
+        System.out.println("Ошибка чтения из файла: " + e.getMessage());
     }
+
 }

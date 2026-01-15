@@ -2,14 +2,13 @@ package src;
 import java.util.*;
 
 public class CarSorter {
-
     private CarSortStrategy strategy;
 
     public void setStrategy(CarSortStrategy strategy) {
         this.strategy = strategy;
     }
 
-    public void sort(List<Car> cars) {
+    public List<Car> sort(List<Car> cars) {
 
         for (int i = 0; i < cars.size() - 1; i++) {
             for (int j = 0; j < cars.size() - 1 - i; j++) {
@@ -19,6 +18,7 @@ public class CarSorter {
                 }
             }
         }
+        return cars;
     }
 
     private void swap(List<Car> cars, int index) {
