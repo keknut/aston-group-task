@@ -16,6 +16,10 @@ void main() throws Exception {
                 DisplayMenu.InputArrayChoice(inputChoice);
                 break;
             case "2":
+                if (Car.cars == null) {
+                    System.out.println("Массив еще не заполнен");
+                    continue;
+                }
                 DisplayMenu.SortArrayField();
                 String fieldInput = scanner.nextLine().trim();
 
