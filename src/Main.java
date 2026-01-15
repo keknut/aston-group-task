@@ -10,6 +10,7 @@ void main() throws Exception {
 
         switch (choice) {
             case "1":
+                DisplayMenu.SetArraySize();
                 DisplayMenu.InputArray();
                 String inputChoice = scanner.nextLine().trim();
                 DisplayMenu.InputArrayChoice(inputChoice);
