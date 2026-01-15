@@ -2,7 +2,7 @@ package src;
 import java.util.*;
 
 public class CarSorter {
-    private CarSortStrategy strategy;
+    protected CarSortStrategy strategy;
 
     public void setStrategy(CarSortStrategy strategy) {
         this.strategy = strategy;
@@ -21,7 +21,7 @@ public class CarSorter {
         return cars;
     }
 
-    private void swap(List<Car> cars, int index) {
+    protected void swap(List<Car> cars, int index) {
         Car temp = cars.get(index);
         cars.set(index, cars.get(index + 1));
         cars.set(index + 1, temp);

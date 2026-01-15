@@ -26,7 +26,7 @@ void main() throws Exception {
                 if (fieldInput.equals("0")) break;
 
                 switch (fieldInput) {
-                    case "1", "2", "3":
+                    case "1", "2", "3", "4":
                         DisplayMenu.SortArrayFieldDirection();
                         String directionInput = scanner.nextLine().trim();
                         DisplayMenu.SortArrayFieldDirection(directionInput, fieldInput);
