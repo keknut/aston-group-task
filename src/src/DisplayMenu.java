@@ -62,7 +62,7 @@ public class DisplayMenu {
         /*
         Очистка буфера после предыдущего ввода
          */
-        scanner.nextLine();
+        //scanner.nextLine();
 
         for (var i = 0; i < Car.cars.length; i++) {
             current = new Car.Builder();
@@ -151,7 +151,7 @@ public class DisplayMenu {
             current.model(model).power(power).year(year);
 
             Car.cars[i] = current.build();
-            System.out.print("\nДобавлен автомобиль: " + current);
+            System.out.print("\nДобавлен автомобиль: " + Car.cars[i]);
         }
         System.out.print('\n');
     }
@@ -170,7 +170,7 @@ public class DisplayMenu {
     public static void InputArrayChoice(String input) {
         switch (input) {
             case "1":
-                SetArraySize();
+                //SetArraySize();
                 try {
                     List<Car> list = FileReader.readCars("src/file.txt");
                     for (int i = 0; i < Car.cars.length && i < list.size(); i++) {
