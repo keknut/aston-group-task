@@ -25,7 +25,7 @@ public enum SortOption {
         return switch (field) {
             case "1" -> "1".equals(direction) ? MODEL_ASC : MODEL_DESC;
             case "2" -> "1".equals(direction) ? POWER_ASC : POWER_DESC;
-            case "3" -> "1".equals(direction) ? YEAR_ASC : YEAR_DESC;
+            case "3", "4" -> "1".equals(direction) ? YEAR_ASC : YEAR_DESC;
             default -> throw new IllegalArgumentException("Неверное поле сортировки: " + field);
         };
     }

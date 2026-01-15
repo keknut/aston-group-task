@@ -33,6 +33,7 @@ public class DisplayMenu {
         System.out.println("1. Модель");
         System.out.println("2. Мощность");
         System.out.println("3. Год выпуска");
+        System.out.println("4. Четный год выпуска");
         System.out.println("0. Вернуться назад\n");
 
         System.out.print("Выберите действие: ");
@@ -144,7 +145,7 @@ public class DisplayMenu {
             var random = new Random();
             current = new Car.Builder();
 
-            String model = models[random.nextInt(Car.cars.length)];
+            String model = models[random.nextInt(models.length)];
             var power = Math.round(random.nextFloat(50f, 100f) * 100f) / 100f;
             int year = random.nextInt(1950, 2026);
 
@@ -212,7 +213,7 @@ public class DisplayMenu {
     public static void SortArrayFieldDirection(String input, String sortIput) {
         try{
             SortOption option = SortOption.fromInput(sortIput, input);
-            CarSorter carSorter = new CarSorter();
+            CarSorter carSorter = sortIput.equals("4") ? new EvenYearCarSorter() : new CarSorter();
             carSorter.setStrategy(option.getStrategy());
 
             List<Car> current = new ArrayList<>(List.of(Car.cars));
@@ -220,7 +221,7 @@ public class DisplayMenu {
             Car.cars = current.toArray(new Car[0]);
 
             System.out.println("Отсортировано: " + option.getDescription());
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             System.out.println("Ошибка: " + e.getMessage());
         }
     }
